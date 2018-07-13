@@ -45,5 +45,5 @@ git clone SSH-адрес_вашего_форка
 
 Репозиторий создан для обучения на интенсивном онлайн‑курсе «[Продвинутый JavaScript](https://htmlacademy.ru/intensive/ecmascript)» от [HTML Academy](https://htmlacademy.ru).
 
-[travis-image]: https://travis-ci.com/htmlacademy/ecmascript-hackathon-guessmelody.svg?branch=master
-[travis-url]: https://travis-ci.com/htmlacademy/ecmascript-hackathon-guessmelody
+[travis-image]: https://travis-ci.com/htmlacademy/ecmascript-hackathon-pixelhunter.svg?branch=master
+[travis-url]: https://travis-ci.com/htmlacademy/ecmascript-hackathon-pixelhunter
