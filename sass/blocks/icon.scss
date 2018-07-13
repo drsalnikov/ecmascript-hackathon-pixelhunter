@@ -1,0 +1,16 @@
+/*
+ * Стили для интерактивных svg-иконок
+ */
+
+@import "../variables/colors";
+
+.icon {
+  &:hover,
+  &:focus {
+    fill: $link-hover-color;
+  }
+
+  &:active {
+    fill: $link-active-color;
+  }
+}

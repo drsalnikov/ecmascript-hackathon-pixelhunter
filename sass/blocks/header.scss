@@ -1,0 +1,56 @@
+/*
+ * Стили для шапки игровых экранов.
+ * Кнопка возврата на первый шаг и табы для экранов с результатами
+ */
+
+@import "../variables/colors";
+
+.header {
+  height: 100px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.back {
+  padding: 0;
+
+  &:hover svg,
+  &:focus svg {
+    fill: $link-hover-color;
+  }
+
+  &:active svg {
+    fill: $link-active-color;
+  }
+}
+
+.header__tabs {
+  font-size: 0;
+}
+
+.tab {
+  margin: 0;
+  padding: 0;
+
+  width: 130px;
+  height: 40px;
+
+  font-size: 22px;
+
+  background-color: rgba(0, 0, 0, 0.1);
+  border: none;
+
+  &:hover,
+  &:focus {
+    color: $main-black-color;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  &:active,
+  &--active {
+    color: white;
+    background-color: $main-black-color;
+  }
+}

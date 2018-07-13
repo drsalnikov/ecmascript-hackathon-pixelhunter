@@ -1,0 +1,97 @@
+/*
+ * Стили для экрана с правилами игры
+ */
+
+@import "../variables/colors";
+@import "../variables/fonts";
+@import "../mixins/general";
+@import "../mixins/text";
+
+.rules {
+  text-align: center;
+}
+
+.rules__title {
+  @include bold-text;
+
+  margin: 30px 0;
+}
+
+.rules__description {
+  @include regular-text;
+  @include list-unstyled;
+
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+.rules__icon {
+  vertical-align: middle;
+}
+
+.rules__ready {
+  margin: 0;
+  margin-bottom: 30px;
+
+  font-weight: 700;
+}
+
+.rules__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rules__input {
+  margin-bottom: 50px;
+  height: 50px;
+
+  font-family: $main-font;
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: bold;
+  text-align: center;
+
+  border: 3px solid transparent;
+  border-radius: 5px;
+
+  &:hover {
+    border-color: #e2a0a1;
+  }
+
+  &:focus {
+    border-color: $link-hover-color;
+  }
+}
+
+.rules__button {
+  width: 90px;
+  height: 90px;
+
+  font-family: $main-font;
+  font-size: 30px;
+  line-height: 60px;
+  font-weight: bold;
+  color: #ffffff;
+
+  background-color: $link-hover-color;
+
+  border-width: 0;
+  border-radius: 45px;
+
+  cursor: pointer;
+
+  &:enabled:hover,
+  &:enabled:focus {
+    background-color: #ff6969;
+  }
+
+  &:enabled:active {
+    background-color: $link-active-color;
+  }
+
+  &:disabled {
+    background-color: #c6a5a5;
+  }
+}

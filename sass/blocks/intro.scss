@@ -1,0 +1,40 @@
+/*
+ * Стили для первого вступительного экрана
+ */
+
+.intro {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 800px;
+  height: 740px;
+
+  background: url("../img/egg_big.png") no-repeat center;
+  background-size: contain;
+}
+
+.intro__asterisk {
+  position: absolute;
+  top: 290px;
+  left: 395px;
+
+  font-size: 172px;
+  line-height: 128px;
+}
+
+.intro__motto {
+  margin: 0;
+  margin-top: auto;
+  position: relative;
+
+  font-size: 18px;
+}
+
+.intro__top {
+  position: absolute;
+  right: 0;
+  top: 0;
+}

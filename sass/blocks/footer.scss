@@ -1,0 +1,48 @@
+/*
+ * Стили для футера сайта
+ */
+
+@import "../variables/colors";
+@import "../mixins/text";
+
+.footer {
+  margin-top: 50px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer__made-in {
+  @include small-text;
+
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.footer__link {
+  @include small-text;
+
+  &:hover,
+  &:focus {
+    color: $link-hover-color;
+  }
+
+  &:active {
+    color: $link-active-color;
+  }
+}
+
+.social-link {
+  margin: 0 2px;
+
+  vertical-align: top;
+  text-decoration: none;
+
+  &:hover .icon,
+  &:focus .icon {
+    fill: $link-hover-color;
+  }
+}

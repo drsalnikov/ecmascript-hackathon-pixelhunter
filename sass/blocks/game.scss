@@ -1,0 +1,130 @@
+/*
+ * Стили для игровых экранов
+ */
+
+@import "../variables/colors";
+@import "../mixins/text";
+
+.game {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.game__timer {
+  @include bold-text;
+  font-size: 60px;
+  line-height: 45px;
+}
+
+.game__task {
+  margin: 20px 0;
+
+  font-size: 22px;
+  line-height: 35px;
+}
+
+.game__content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}
+
+.game__option {
+  position: relative;
+  border: 10px solid transparent;
+
+  width: 468px;
+  height: 458px;
+  font-size: 0;
+
+  text-align: center;
+  vertical-align: middle;
+}
+
+.game__answer {
+  position: absolute;
+  width: 78px;
+  height: 78px;
+
+  bottom: 30px;
+
+  font-size: 0;
+
+  & span {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 70px;
+
+    background: rgba(0, 0, 0, 0.5) no-repeat center;
+
+    &:hover {
+      background-color: $main-black-color;
+    }
+  }
+
+  &--photo {
+    left: 30px;
+
+    & span {
+      background-image: url("../img/photo_big.png");
+    }
+  }
+
+  &--paint {
+    right: 30px;
+
+    & span {
+      background-image: url("../img/paint_big.png");
+    }
+  }
+
+  & input:focus + span {
+    background-color: $main-black-color;
+  }
+
+  & input:checked + span {
+    background-color: $link-hover-color;
+  }
+}
+
+.game__content--wide {
+  .game__option {
+    width: 705px;
+    height: 455px;
+  }
+
+  .game__answer {
+    top: 208px;
+  }
+
+  .game__answer--photo {
+    left: -100px;
+  }
+
+  .game__answer--paint {
+    right: -100px;
+  }
+}
+
+.game__content--triple .game__option {
+  cursor: pointer;
+
+  width: 304px;
+  height: 455px;
+
+  &:hover {
+    border-color: $link-hover-color;
+  }
+
+  &:active {
+    border-color: $link-active-color;
+  }
+}

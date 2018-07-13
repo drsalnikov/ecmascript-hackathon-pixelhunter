@@ -1,0 +1,21 @@
+/*
+ * Стили для кнопки, по которой можно посмотреть топ-игоков.
+ * Иконка в виде кубка в правом верхнем углу экранов.
+ */
+
+.top {
+  width: 71px;
+  height: 79px;
+
+  background: transparent;
+  border: none;
+
+  &:hover,
+  &:focus {
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(1.05);
+  }
+}

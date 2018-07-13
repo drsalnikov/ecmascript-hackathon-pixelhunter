@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Пиксель хантер</title>
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<div style="display:none">
+  <include src="img/sprite.svg"></include>
+</div>
+
+<main class="central">
+  <div id="main" class="central__content">
+
+    <section id="intro" class="intro">
+      <button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>
+      <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
+      <button class="intro__top top" type="button">
+        <img src="img/icon-top.svg" width="71" height="79" alt="Топ игроков">
+      </button>
+    </section>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <a href="https://htmlacademy.ru" class="social-link">
+    <span class="visually-hidden">HTML Academy</span>
+    <svg class="icon" width="108" height="37" viewBox="0 0 108 37" fill="#000000">
+      <use xlink:href="img/sprite.svg#logo-htmla"></use>
+    </svg>
+  </a>
+  <span class="footer__made-in">Сделано в <a href="https://htmlacademy.ru" class="footer__link">HTML Academy</a> &copy; 2018</span>
+  <div class="footer__social-links">
+    <a href="https://twitter.com/htmlacademy_ru" class="social-link">
+      <span class="visually-hidden">Твиттер</span>
+      <svg class="icon" width="29" height="29" viewBox="0 0 29 29" fill="#000000">
+        <use xlink:href="img/sprite.svg#icon-tw"></use>
+      </svg>
+    </a>
+    <a href="https://www.instagram.com/htmlacademy/" class="social-link">
+      <span class="visually-hidden">Инстаграм</span>
+      <svg class="icon" width="29" height="29" viewBox="0 0 29 29" fill="#000000">
+        <use xlink:href="img/sprite.svg#icon-ig"></use>
+      </svg>
+    </a>
+    <a href="https://www.facebook.com/htmlacademy" class="social-link">
+      <span class="visually-hidden">Фейсбук</span>
+      <svg class="icon" width="29" height="29" viewBox="0 0 29 29" fill="#000000">
+        <use xlink:href="img/sprite.svg#icon-fb"></use>
+      </svg>
+    </a>
+    <a href="https://vk.com/htmlacademy" class="social-link">
+      <span class="visually-hidden">ВКонтакте</span>
+      <svg class="icon" width="29" height="29" viewBox="0 0 29 29" fill="#000000">
+        <use xlink:href="img/sprite.svg#icon-vk"></use>
+      </svg>
+    </a>
+  </div>
+</footer>
+
+<!-- Приветствие -->
+<template id="greeting">
+  <section class="greeting central--blur">
+    <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
+    <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>
+    <div class="greeting__challenge">
+      <h3 class="greeting__challenge-title">Лучшие художники-фотореалисты бросают тебе вызов!</h3>
+      <p class="greeting__challenge-text">Правила игры просты:</p>
+      <ul class="greeting__challenge-list">
+        <li>Нужно отличить рисунок от фотографии и сделать выбор.</li>
+        <li>Задача кажется тривиальной, но не думай, что все так просто.</li>
+        <li>Фотореализм обманчив и коварен.</li>
+        <li>Помни, главное — смотреть очень внимательно.</li>
+      </ul>
+    </div>
+    <button class="greeting__continue" type="button">
+      <span class="visually-hidden">Продолжить</span>
+      <svg class="icon" width="64" height="64" viewBox="0 0 64 64" fill="#000000">
+        <use xlink:href="img/sprite.svg#arrow-right"></use>
+      </svg>
+    </button>
+    <button class="greeting__top top" type="button">
+      <img src="img/icon-top.svg" width="71" height="79" alt="Топ игроков">
+    </button>
+  </section>
+</template>
+
+<!-- Правила игры -->
+<template id="rules">
+  <header class="header">
+    <button class="back">
+      <span class="visually-hidden">Вернуться к началу</span>
+      <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
+        <use xlink:href="img/sprite.svg#arrow-left"></use>
+      </svg>
+      <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
+        <use xlink:href="img/sprite.svg#logo-small"></use>
+      </svg>
+    </button>
+  </header>
+  <section class="rules">
+    <h2 class="rules__title">Правила</h2>
+    <ul class="rules__description">
+      <li>Угадай 10 раз для каждого изображения фото
+        <img class="rules__icon" src="img/icon-photo.png" width="32" height="31" alt="Фото"> или рисунок
+        <img class="rules__icon" src="img/icon-paint.png" width="32" height="31" alt="Рисунок"></li>
+      <li>Фотографиями или рисунками могут быть оба изображения.</li>
+      <li>На каждую попытку отводится 30 секунд.</li>
+      <li>Ошибиться можно не более 3 раз.</li>
+    </ul>
+    <p class="rules__ready">Готовы?</p>
+    <form class="rules__form">
+      <input class="rules__input" type="text" placeholder="Ваше Имя">
+      <button class="rules__button  continue" type="submit" disabled>Go!</button>
+    </form>
+  </section>
+</template>
+
+<!-- Игровой экран с двумя изображениями -->
+<template id="game-1">
+  <header class="header">
+    <button class="back">
+      <span class="visually-hidden">Вернуться к началу</span>
+      <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
+        <use xlink:href="img/sprite.svg#arrow-left"></use>
+      </svg>
+      <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
+        <use xlink:href="img/sprite.svg#logo-small"></use>
+      </svg>
+    </button>
+    <div class="game__timer">NN</div>
+    <div class="game__lives">
+      <img src="img/heart__empty.svg" class="game__heart" alt=" Missed Life" width="31" height="27">
+      <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
+      <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
+    </div>
+  </header>
+  <section class="game">
+    <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
+    <form class="game__content">
+      <div class="game__option">
+        <img src="http://placehold.it/468x458" alt="Option 1" width="468" height="458">
+        <label class="game__answer game__answer--photo">
+          <input class="visually-hidden" name="question1" type="radio" value="photo">
+          <span>Фото</span>
+        </label>
+        <label class="game__answer game__answer--paint">
+          <input class="visually-hidden" name="question1" type="radio" value="paint">
+          <span>Рисунок</span>
+        </label>
+      </div>
+      <div class="game__option">
+        <img src="http://placehold.it/468x458" alt="Option 2" width="468" height="458">
+        <label class="game__answer  game__answer--photo">
+          <input class="visually-hidden" name="question2" type="radio" value="photo">
+          <span>Фото</span>
+        </label>
+        <label class="game__answer  game__answer--paint">
+          <input class="visually-hidden" name="question2" type="radio" value="paint">
+          <span>Рисунок</span>
+        </label>
+      </div>
+    </form>
+    <ul class="stats">
+      <li class="stats__result stats__result--wrong"></li>
+      <li class="stats__result stats__result--slow"></li>
+      <li class="stats__result stats__result--fast"></li>
+      <li class="stats__result stats__result--correct"></li>
+      <li class="stats__result stats__result--unknown"></li>
+      <li class="stats__result stats__result--unknown"></li>
+      <li class="stats__result stats__result--unknown"></li>
+      <li class="stats__result stats__result--unknown"></li>
+      <li class="stats__result stats__result--unknown"></li>
+      <li class="stats__result stats__result--unknown"></li>
+    </ul>
+  </section>
+</template>
+
+<!-- Игровой экран с одним изображением -->
+<template id="game-2">
+  <header class="header">
+    <button class="back">
+      <span class="visually-hidden">Вернуться к началу</span>
+      <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
+        <use xlink:href="img/sprite.svg#arrow-left"></use>
+      </svg>
+      <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
+        <use xlink:href="img/sprite.svg#logo-small"></use>
+      </svg>
+    </button>
+    <div class="game__timer">NN</div>
+    <div class="game__lives">
+      <img src="img/heart__empty.svg" class="game__heart" alt="Life" width="31" height="27">
+      <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
+      <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
+    </div>
+  </header>
+  <section class="game">
+    <p class="game__task">Угадай, фото или рисунок?</p>
+    <form class="game__content  game__content--wide">
+      <div class="game__option">
+        <img src="http://placehold.it/705x455" alt="Option 1" width="705" height="455">
+        <label class="game__answer  game__answer--photo">
+          <input class="visually-hidden" name="question1" type="radio" value="photo">
+          <span>Фото</span>
+        </label>
+        <label class="game__answer  game__answer--paint">
+          <input class="visually-hidden" name="question1" type="radio" value="paint">
+          <span>Рисунок</span>
+        </label>
+      </div>
+    </form>
+    <ul class="stats">
+      <li class="stats__result stats__result--wrong"></li>
+      <li class="stats__result stats__result--slow"></li>
+      <li class="stats__result stats__result--fast"></li>
+      <li class="stats__result stats__result--correct"></li>
+      <li class="stats__result stats__result--wrong"></li>
+      <li class="stats__result stats__result--unknown"></li>
+      <li class="stats__result stats__result--slow"></li>
+      <li class="stats__result stats__result--unknown"></li>
+      <li class="stats__result stats__result--fast"></li>
+      <li class="stats__result stats__result--unknown"></li>
+    </ul>
+  </section>
+</template>
+
+<!-- Игровой экран с тремя изображениями -->
+<template id="game-3">
+  <header class="header">
+    <button class="back">
+      <span class="visually-hidden">Вернуться к началу</span>
+      <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
+        <use xlink:href="img/sprite.svg#arrow-left"></use>
+      </svg>
+      <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
+        <use xlink:href="img/sprite.svg#logo-small"></use>
+      </svg>
+    </button>
+    <div class="game__timer">NN</div>
+    <div class="game__lives">
+      <img src="img/heart__empty.svg" class="game__heart" alt="Life" width="31" height="27">
+      <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
+      <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
+    </div>
+  </header>
+  <section class="game">
+    <p class="game__task">Найдите рисунок среди изображений</p>
+    <form class="game__content  game__content--triple">
+      <div class="game__option">
+        <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
+      </div>
+      <div class="game__option  game__option--selected">
+        <img src="http://placehold.it/304x455" alt="Option 2" width="304" height="455">
+      </div>
+      <div class="game__option">
+        <img src="http://placehold.it/304x455" alt="Option 3" width="304" height="455">
+      </div>
+    </form>
+    <ul class="stats">
+      <li class="stats__result stats__result--wrong"></li>
+      <li class="stats__result stats__result--slow"></li>
+      <li class="stats__result stats__result--fast"></li>
+      <li class="stats__result stats__result--correct"></li>
+      <li class="stats__result stats__result--wrong"></li>
+      <li class="stats__result stats__result--unknown"></li>
+      <li class="stats__result stats__result--slow"></li>
+      <li class="stats__result stats__result--unknown"></li>
+      <li class="stats__result stats__result--fast"></li>
+      <li class="stats__result stats__result--unknown"></li>
+    </ul>
+  </section>
+</template>
+
+<!-- Общая статистика по всем игрокам -->
+<template id="stats">
+  <header class="header">
+    <button class="back">
+      <span class="visually-hidden">Вернуться к началу</span>
+      <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
+        <use xlink:href="img/sprite.svg#arrow-left"></use>
+      </svg>
+      <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
+        <use xlink:href="img/sprite.svg#logo-small"></use>
+      </svg>
+    </button>
+  </header>
+  <section class="result">
+    <h2 class="result__title">Победа!</h2>
+    <table class="result__table">
+      <tr>
+        <td class="result__number">1.</td>
+        <td colspan="2">
+          <ul class="stats">
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--slow"></li>
+            <li class="stats__result stats__result--fast"></li>
+            <li class="stats__result stats__result--correct"></li>
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--unknown"></li>
+            <li class="stats__result stats__result--slow"></li>
+            <li class="stats__result stats__result--unknown"></li>
+            <li class="stats__result stats__result--fast"></li>
+            <li class="stats__result stats__result--unknown"></li>
+          </ul>
+        </td>
+        <td class="result__points">× 100</td>
+        <td class="result__total">900</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="result__extra">Бонус за скорость:</td>
+        <td class="result__extra">1 <span class="stats__result stats__result--fast"></span></td>
+        <td class="result__points">× 50</td>
+        <td class="result__total">50</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="result__extra">Бонус за жизни:</td>
+        <td class="result__extra">2 <span class="stats__result stats__result--alive"></span></td>
+        <td class="result__points">× 50</td>
+        <td class="result__total">100</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="result__extra">Штраф за медлительность:</td>
+        <td class="result__extra">2 <span class="stats__result stats__result--slow"></span></td>
+        <td class="result__points">× 50</td>
+        <td class="result__total">-100</td>
+      </tr>
+      <tr>
+        <td colspan="5" class="result__total  result__total--final">950</td>
+      </tr>
+    </table>
+    <table class="result__table">
+      <tr>
+        <td class="result__number">2.</td>
+        <td>
+          <ul class="stats">
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--slow"></li>
+            <li class="stats__result stats__result--fast"></li>
+            <li class="stats__result stats__result--correct"></li>
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--unknown"></li>
+            <li class="stats__result stats__result--slow"></li>
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--fast"></li>
+            <li class="stats__result stats__result--wrong"></li>
+          </ul>
+        </td>
+        <td class="result__total"></td>
+        <td class="result__total  result__total--final">fail</td>
+      </tr>
+    </table>
+    <table class="result__table">
+      <tr>
+        <td class="result__number">3.</td>
+        <td colspan="2">
+          <ul class="stats">
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--slow"></li>
+            <li class="stats__result stats__result--fast"></li>
+            <li class="stats__result stats__result--correct"></li>
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--unknown"></li>
+            <li class="stats__result stats__result--slow"></li>
+            <li class="stats__result stats__result--unknown"></li>
+            <li class="stats__result stats__result--fast"></li>
+            <li class="stats__result stats__result--unknown"></li>
+          </ul>
+        </td>
+        <td class="result__points">× 100</td>
+        <td class="result__total">900</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="result__extra">Бонус за жизни:</td>
+        <td class="result__extra">2 <span class="stats__result stats__result--alive"></span></td>
+        <td class="result__points">× 50</td>
+        <td class="result__total">100</td>
+      </tr>
+      <tr>
+        <td colspan="5" class="result__total  result__total--final">950</td>
+      </tr>
+    </table>
+  </section>
+</template>
+
+<!-- Общая статистика по всем игрокам. Ещё один вариант -->
+<template id="stats-more">
+  <header class="header">
+    <button class="back">
+      <span class="visually-hidden">Вернуться к началу</span>
+      <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
+        <use xlink:href="img/sprite.svg#arrow-left"></use>
+      </svg>
+      <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
+        <use xlink:href="img/sprite.svg#logo-small"></use>
+      </svg>
+    </button>
+    <div class="header__tabs">
+      <button class="tab tab--active">Ты</button>
+      <button class="tab">Топ 50</button>
+    </div>
+  </header>
+  <section class="result">
+    <p class="result__text">У тебя
+      <span id="result__score">28 650 очков</span> и
+      <span id="result__place">3</span> место в топе</p>
+    <table class="result__table">
+      <tr>
+        <td class="result__number">1.</td>
+        <td colspan="2">
+          <ul class="stats">
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--slow"></li>
+            <li class="stats__result stats__result--fast"></li>
+            <li class="stats__result stats__result--correct"></li>
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--unknown"></li>
+            <li class="stats__result stats__result--slow"></li>
+            <li class="stats__result stats__result--unknown"></li>
+            <li class="stats__result stats__result--fast"></li>
+            <li class="stats__result stats__result--unknown"></li>
+          </ul>
+        </td>
+        <td class="result__points">× 100</td>
+        <td class="result__total">900</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="result__extra">Бонус за скорость:</td>
+        <td class="result__extra">1 <span class="stats__result stats__result--fast"></span></td>
+        <td class="result__points">× 50</td>
+        <td class="result__total">50</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="result__extra">Бонус за жизни:</td>
+        <td class="result__extra">2 <span class="stats__result stats__result--alive"></span></td>
+        <td class="result__points">× 50</td>
+        <td class="result__total">100</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="result__extra">Штраф за медлительность:</td>
+        <td class="result__extra">2 <span class="stats__result stats__result--slow"></span></td>
+        <td class="result__points">× 50</td>
+        <td class="result__total">-100</td>
+      </tr>
+      <tr>
+        <td colspan="5" class="result__total  result__total--final">950</td>
+      </tr>
+    </table>
+    <table class="result__table">
+      <tr>
+        <td class="result__number">2.</td>
+        <td>
+          <ul class="stats">
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--slow"></li>
+            <li class="stats__result stats__result--fast"></li>
+            <li class="stats__result stats__result--correct"></li>
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--unknown"></li>
+            <li class="stats__result stats__result--slow"></li>
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--fast"></li>
+            <li class="stats__result stats__result--wrong"></li>
+          </ul>
+        </td>
+        <td class="result__total"></td>
+        <td class="result__total  result__total--final">fail</td>
+      </tr>
+    </table>
+    <table class="result__table">
+      <tr>
+        <td class="result__number">3.</td>
+        <td colspan="2">
+          <ul class="stats">
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--slow"></li>
+            <li class="stats__result stats__result--fast"></li>
+            <li class="stats__result stats__result--correct"></li>
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--unknown"></li>
+            <li class="stats__result stats__result--slow"></li>
+            <li class="stats__result stats__result--unknown"></li>
+            <li class="stats__result stats__result--fast"></li>
+            <li class="stats__result stats__result--unknown"></li>
+          </ul>
+        </td>
+        <td class="result__points">× 100</td>
+        <td class="result__total">900</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="result__extra">Бонус за жизни:</td>
+        <td class="result__extra">2 <span class="stats__result stats__result--alive"></span></td>
+        <td class="result__points">× 50</td>
+        <td class="result__total">100</td>
+      </tr>
+      <tr>
+        <td colspan="5" class="result__total  result__total--final">950</td>
+      </tr>
+    </table>
+  </section>
+</template>
+
+<!-- Статистика по одному игроку -->
+<template id="stats-single">
+  <header class="header">
+    <button class="back">
+      <span class="visually-hidden">Вернуться к началу</span>
+      <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
+        <use xlink:href="img/sprite.svg#arrow-left"></use>
+      </svg>
+      <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
+        <use xlink:href="img/sprite.svg#logo-small"></use>
+      </svg>
+    </button>
+  </header>
+  <section class="result">
+    <h2 class="result__title result__title--single">950 очков. Неплохо!</h2>
+    <table class="result__table result__table--single">
+      <tr>
+        <td colspan="2">
+          <ul class="stats">
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--slow"></li>
+            <li class="stats__result stats__result--fast"></li>
+            <li class="stats__result stats__result--correct"></li>
+            <li class="stats__result stats__result--wrong"></li>
+            <li class="stats__result stats__result--unknown"></li>
+            <li class="stats__result stats__result--slow"></li>
+            <li class="stats__result stats__result--unknown"></li>
+            <li class="stats__result stats__result--fast"></li>
+            <li class="stats__result stats__result--unknown"></li>
+          </ul>
+        </td>
+        <td class="result__points">× 100</td>
+        <td class="result__total">900</td>
+      </tr>
+      <tr>
+        <td class="result__extra">Бонус за скорость:</td>
+        <td class="result__extra">1 <span class="stats__result stats__result--fast"></span></td>
+        <td class="result__points">× 50</td>
+        <td class="result__total">50</td>
+      </tr>
+      <tr>
+        <td class="result__extra">Бонус за жизни:</td>
+        <td class="result__extra">2 <span class="stats__result stats__result--alive"></span></td>
+        <td class="result__points">× 50</td>
+        <td class="result__total">100</td>
+      </tr>
+      <tr>
+        <td class="result__extra">Штраф за медлительность:</td>
+        <td class="result__extra">2 <span class="stats__result stats__result--slow"></span></td>
+        <td class="result__points">× 50</td>
+        <td class="result__total">-100</td>
+      </tr>
+    </table>
+  </section>
+</template>
+
+<!-- Модальное окно с ошибкой -->
+<template id="modal-error">
+  <section class="modal">
+    <div class="modal__inner">
+      <h2 class="modal__title">Произошла ошибка!</h2>
+      <p class="modal__text modal__text--error">Статус: 404. Пожалуйста, перезагрузите страницу.</p>
+    </div>
+  </section>
+</template>
+
+<!-- Модальное окно с подтверждением -->
+<template id="modal-confirm">
+  <section class="modal">
+    <form class="modal__inner">
+      <button class="modal__close" type="button">
+        <span class="visually-hidden">Закрыть</span>
+      </button>
+      <h2 class="modal__title">Подтверждение</h2>
+      <p class="modal__text">Вы уверены что хотите начать игру заново?</p>
+      <div class="modal__button-wrapper">
+        <button class="modal__btn">Ок</button>
+        <button class="modal__btn">Отмена</button>
+      </div>
+    </form>
+  </section>
+</template>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+/*
+ * Стили для экранов с результатами игры
+ */
+
+@import "../mixins/text";
+
+.result {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.result__title {
+  margin: 30px 0;
+
+  font-size: 44px;
+
+  &--single {
+    padding-top: 150px;
+    position: relative;
+
+    font-size: 50px;
+    line-height: 50px;
+
+    &::before {
+      position: absolute;
+      content: "";
+
+      width: 111px;
+      height: 123px;
+
+      top: 0;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      background-image: url("../img/icon-top.svg");
+      background-repeat: no-repeat;
+      background-size: 111px 123px;
+    }
+  }
+}
+
+.result__text {
+  @include regular-text;
+
+  font-weight: 500;
+}
+
+.result__table {
+  width: 670px;
+
+  margin-bottom: 40px;
+
+  td {
+    border: 10px solid transparent;
+  }
+
+  .stats {
+    justify-content: flex-end;
+  }
+
+  &--single {
+    width: auto;
+  }
+}
+
+.result__number {
+  @include bold-text;
+  font-size: 22px;
+}
+
+.result__extra {
+  min-width: 50px;
+  text-align: right;
+}
+
+.result__total {
+  min-width: 40px;
+
+  text-align: right;
+  text-transform: uppercase;
+
+  &--final {
+    @include bold-text;
+  }
+}

@@ -1,0 +1,116 @@
+/*
+ * Стили для модальных окон
+ */
+
+@import "../mixins/text";
+
+.modal {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+
+  background-color: rgba(0, 0, 0, 0.8);
+
+  &--hidden {
+    display: none;
+  }
+}
+
+.modal__inner {
+  position: relative;
+  width: 450px;
+  padding: 50px 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: #000000;
+  background: #a8c8c4 linear-gradient(to bottom left, #ccdeeb, #84b39e) no-repeat;
+
+  animation: bounce 0.6s;
+}
+
+.modal__title {
+  margin: 0;
+  margin-bottom: 30px;
+
+  font-size: 32px;
+}
+
+.modal__text {
+  margin: 0;
+  margin-bottom: 30px;
+
+  font-size: 18px;
+
+  &--error {
+    margin-bottom: 0;
+  }
+}
+
+.modal__close {
+  padding: 0;
+
+  position: absolute;
+  top: -40px;
+  right: -40px;
+
+  width: 30px;
+  height: 30px;
+
+  background-color: transparent;
+  background-image: url("../img/icon-cross.svg");
+  background-repeat: no-repeat;
+  background-size: 30px 30px;
+
+  border: none;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    opacity: 0.8;
+  }
+
+  &:focus {
+    opacity: 0.6;
+  }
+}
+
+.modal__button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.modal__btn {
+  @include regular-text;
+
+  padding: 0 20px;
+  height: 50px;
+
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 2px transparent;
+  border-style: solid;
+
+  &:hover,
+  &:focus {
+    opacity: 0.8;
+  }
+
+  &:active {
+    opacity: 0.6;
+  }
+
+  &:first-of-type {
+    margin-right: 15px;
+  }
+}
