@@ -29,11 +29,11 @@ gulp.task(`style`, () => {
       }),
       mqpacker({sort: true})
     ])).
-    pipe(gulp.dest(`build/css`)).
+    pipe(gulp.dest(`public/css`)).
     pipe(server.stream()).
     pipe(minify()).
     pipe(rename(`style.min.css`)).
-    pipe(gulp.dest(`build/css`));
+    pipe(gulp.dest(`public/css`));
 });
 
 gulp.task(`sprite`, () => {
@@ -42,27 +42,27 @@ gulp.task(`sprite`, () => {
     inlineSvg: true
   }))
   .pipe(rename(`sprite.svg`))
-  .pipe(gulp.dest(`build/img`));
+  .pipe(gulp.dest(`public/img`));
 });
 
 gulp.task(`scripts`, () => {
   return gulp.src(`js/**/*.js`).
     pipe(plumber()).
-    pipe(gulp.dest(`build/js/`));
+    pipe(gulp.dest(`public/js/`));
 });
 
 gulp.task(`imagemin`, [`copy`], () => {
-  return gulp.src(`build/img/**/*.{jpg,png,gif}`).
+  return gulp.src(`public/img/**/*.{jpg,png,gif}`).
     pipe(imagemin([
       imagemin.optipng({optimizationLevel: 3}),
       imagemin.jpegtran({progressive: true})
     ])).
-    pipe(gulp.dest(`build/img`));
+    pipe(gulp.dest(`public/img`));
 });
 
 gulp.task(`copy-html`, () => {
   return gulp.src(`*.{html,ico}`).
-    pipe(gulp.dest(`build`)).
+    pipe(gulp.dest(`public`)).
     pipe(server.stream());
 });
 
@@ -71,11 +71,11 @@ gulp.task(`copy`, [`copy-html`, `scripts`, `style`, `sprite`], () => {
     `fonts/**/*.{woff,woff2}`,
     `img/*.*`
   ], {base: `.`}).
-    pipe(gulp.dest(`build`));
+    pipe(gulp.dest(`public`));
 });
 
 gulp.task(`clean`, () => {
-  return del(`build`);
+  return del(`public`);
 });
 
 gulp.task(`js-watch`, [`scripts`], (done) => {

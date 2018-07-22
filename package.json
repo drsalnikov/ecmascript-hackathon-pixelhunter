@@ -6,8 +6,8 @@
   "scripts": {
     "eslint": "eslint ./gulpfile.js js/",
     "stylelint": "stylelint 'sass/**/*.scss' --syntax scss",
-    "build": "gulp build",
-    "start": "gulp serve",
+    "build": "gulp build && react-scripts build",
+    "start": "gulp build && react-scripts start",
     "test": "npm run eslint && npm run stylelint && gulp test"
   },
   "devDependencies": {
@@ -25,6 +25,9 @@
     "gulp-rename": "1.2.3",
     "gulp-sass": "4.0.1",
     "gulp-svgstore": "6.1.1",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-scripts": "^1.1.4",
     "stylelint": "8.4.x",
     "stylelint-config-htmlacademy": "0.1.x"
   },
