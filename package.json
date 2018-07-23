@@ -7,7 +7,7 @@
     "eslint": "eslint ./gulpfile.js js/",
     "stylelint": "stylelint 'sass/**/*.scss' --syntax scss",
     "build": "gulp build && react-scripts build",
-    "start": "gulp build && react-scripts start",
+    "start": "react-scripts start",
     "test": "npm run eslint && npm run stylelint && gulp test"
   },
   "devDependencies": {
@@ -25,13 +25,19 @@
     "gulp-rename": "1.2.3",
     "gulp-sass": "4.0.1",
     "gulp-svgstore": "6.1.1",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
     "react-scripts": "^1.1.4",
     "stylelint": "8.4.x",
     "stylelint-config-htmlacademy": "0.1.x"
   },
   "engines": {
     "node": "8"
+  },
+  "dependencies": {
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.0"
   }
 }

@@ -44,4 +44,4 @@ const GameOne = () => {
   );
 };
 
-export default Intro;
+export default GameOne;
