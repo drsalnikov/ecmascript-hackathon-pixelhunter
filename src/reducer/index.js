@@ -3,5 +3,6 @@ import usernameReducer from './username';
 
 
 export default combineReducers({
-  username: usernameReducer
+  username: usernameReducer,
+  questions
 })

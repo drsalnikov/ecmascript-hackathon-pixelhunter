@@ -4,6 +4,11 @@ import GameOne from './GameOne';
 
 class Game extends Component {
 
+  componentWillMount() {
+
+  }
+
+
   render() {
     return <GameOne />;
   }

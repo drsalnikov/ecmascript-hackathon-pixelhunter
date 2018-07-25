@@ -1,9 +1,35 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addUsername } from '../ac';
+import { withRouter } from 'react-router';
 
 class Rules extends Component {
+  static propTypes = {
+    username: PropTypes.string
+  };
+
+  state = {
+    username: '',
+    disabled: true
+  }
+
+  handleSubmit = ev => {
+    const { history } = this.props;
+    ev.preventDefault();
+    this.props.addUsername(this.state.username);
+    history.push('/game');
+  }
+
+  handleChange = ev => {
+    const { value } = ev.target;
+    this.setState({
+      username: value,
+      disabled: !(value.length > 0)
+    });
+  }
 
   render() {
-
     return (
       <div>
         <header className="header">
@@ -28,9 +54,9 @@ class Rules extends Component {
             <li>Ошибиться можно не более 3 раз.</li>
           </ul>
           <p className="rules__ready">Готовы?</p>
-          <form className="rules__form">
-            <input className="rules__input" type="text" placeholder="Ваше Имя" />
-            <button className="rules__button  continue" type="submit" disabled>Go!</button>
+          <form className="rules__form" onSubmit={this.handleSubmit}>
+            <input value={this.state.username} onChange={this.handleChange} className="rules__input" type="text" placeholder="Ваше Имя" />
+            <button className="rules__button  continue" type="submit" disabled={this.state.disabled}>Go!</button>
           </form>
         </section>
       </div>
@@ -38,4 +64,6 @@ class Rules extends Component {
   };
 };
 
-export default Rules;
+export default withRouter(connect(state => ({
+  username: state.username
+}), { addUsername })(Rules));
