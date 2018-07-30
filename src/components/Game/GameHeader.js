@@ -1,6 +1,10 @@
 import React from 'react';
+import { Limit } from '../../conf';
 
-const Header = () => {
+const HeartEmpty = () => (<img src="img/heart__empty.svg" className="game__heart" alt="Life" width="31" height="27" />);
+const HeartFull = () => (<img src="img/heart__full.svg" className="game__heart" alt="Life" width="31" height="27" />);
+
+const GameHeader = ({ time, lives }) => {
 
   return (
     <header className="header">
@@ -13,15 +17,15 @@ const Header = () => {
           <use xlinkHref="img/sprite.svg#logo-small" />
         </svg>
       </button>
-      <div className="game__timer">NN</div>
+      <div className="game__timer">{time}</div>
       <div className="game__lives">
-        <img src="img/heart__empty.svg" className="game__heart" alt="Life" width={31} height={27} />
-        <img src="img/heart__full.svg" className="game__heart" alt="Life" width={31} height={27} />
-        <img src="img/heart__full.svg" className="game__heart" alt="Life" width={31} height={27} />
+        {new Array(Limit.LIVES - lives).fill(<HeartEmpty />)}
+        {new Array(lives).fill(<HeartFull />)}
       </div>
     </header>
 
   );
 };
 
-export default Header;
+
+export default GameHeader;

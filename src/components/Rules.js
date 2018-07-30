@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addUsername } from '../ac';
-import { withRouter } from 'react-router';
 
 class Rules extends Component {
   static propTypes = {
@@ -15,9 +14,9 @@ class Rules extends Component {
   }
 
   handleSubmit = ev => {
-    const { history } = this.props;
     ev.preventDefault();
-    this.props.addUsername(this.state.username);
+    const { history, addUsername } = this.props;
+    addUsername(this.state.username);
     history.push('/game');
   }
 
@@ -64,6 +63,4 @@ class Rules extends Component {
   };
 };
 
-export default withRouter(connect(state => ({
-  username: state.username
-}), { addUsername })(Rules));
+export default connect(null, { addUsername })(Rules);

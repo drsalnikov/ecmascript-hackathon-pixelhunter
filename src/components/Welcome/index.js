@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { loadQuestions } from '../../ac';
 
 import Intro from './intro';
 import Greeting from './greeting';
@@ -6,34 +8,30 @@ import Greeting from './greeting';
 
 class Welcome extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      loaded: false
+  componentDidMount() {
+    const { loadQuestions, loaded, loading } = this.props
+    if (!loaded || !loading) {
+      loadQuestions();
     };
   }
 
-  componentWillMount() {
-    setTimeout(() => {
-      this.setState({
-        loaded: true
-      });
-    }, 2000);
-  }
-
-  getScreen() {
-    return (this.state.loaded) ? <Greeting /> : <Intro />;
+  getBody() {
+    const { loaded } = this.props;
+    return loaded ? <Greeting /> : < Intro />;
   }
 
   render() {
     return (
       <main className="central">
         <div id="main" className="central__content">
-          {this.getScreen()}
+          {this.getBody()}
         </div>
       </main>
     );
   }
 };
 
-export default Welcome;
+export default connect(state => ({
+  loaded: state.questions.loadedQuestions,
+  loading: state.questions.loadingQuestions
+}), { loadQuestions })(Welcome);

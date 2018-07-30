@@ -13,15 +13,14 @@ export default (state = defaultState, action) => {
     case LOAD_QUESTIONS + START:
       return Object.assign({}, state, {
         loadingQuestions: true,
-        questions: null
+        data: null
       });
 
     case LOAD_QUESTIONS + SUCCESS:
       return Object.assign({}, state, {
         loadedQuestions: true,
-        questions: payload.response
+        data: payload.response
       });
   };
-
   return state;
 }
