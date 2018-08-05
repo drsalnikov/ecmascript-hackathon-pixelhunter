@@ -1,7 +1,6 @@
 import React from 'react';
 import GameStats from './GameStats';
 
-
 const TinderLike = ({ data: { question, answers }, levelHandler }) => {
 
   const changeHandler = ({ target }) => {

@@ -22,43 +22,37 @@ class TwoOfTwo extends Component {
     }
   }
 
-  setForm = ref => {
-    this.form = findDOMNode(ref);
-  }
-
   render() {
+    const { question1Selected, question2Selected } = this.state;
     const { data: { answers, question }, levelHandler } = this.props;
-    const { question1Selected, question2Selected } = this.state
-
     if (question1Selected && question2Selected) {
       const rule = answers[0].type === question1Selected && answers[1].type === question2Selected;
       levelHandler(rule);
-      this.form.reset();
     }
 
     return (
       <section className="game" >
         <p className="game__task">{question}</p>
-        <form ref={this.setForm} className="game__content">
+        <form onChange={this.changeHandler.bind(this)} className="game__content">
           <div className="game__option">
             <img src={answers[0].image.url} alt="Option" width={answers[0].image.width} height={answers[0].image.height} />
             <label className="game__answer game__answer--photo">
-              <input checked={this.state.question1Selected === 'photo'} onChange={this.changeHandler.bind(this)} className="visually-hidden" name="question1" type="radio" defaultValue="photo" />
+              <input checked={this.state.question1Selected === 'photo'} className="visually-hidden" name="question1" type="radio" defaultValue="photo" />
               <span>Фото</span>
             </label>
             <label className="game__answer game__answer--paint">
-              <input checked={this.state.question1Selected === 'painting'} onChange={this.changeHandler.bind(this)} className="visually-hidden" name="question1" type="radio" defaultValue="painting" />
+              <input checked={this.state.question1Selected === 'painting'} className="visually-hidden" name="question1" type="radio" defaultValue="painting" />
               <span>Рисунок</span>
             </label>
           </div>
           <div className="game__option">
             <img src={answers[1].image.url} alt="Option" width={answers[1].image.width} height={answers[1].image.height} />
             <label className="game__answer game__answer--photo">
-              <input checked={this.state.question2Selected === 'photo'} onChange={this.changeHandler.bind(this)} className="visually-hidden" name="question2" type="radio" defaultValue="photo" />
+              <input checked={this.state.question2Selected === 'photo'} className="visually-hidden" name="question2" type="radio" defaultValue="photo" />
               <span>Фото</span>
             </label>
             <label className="game__answer game__answer--paint">
-              <input checked={this.state.question2Selected === 'painting'} onChange={this.changeHandler.bind(this)} className="visually-hidden" name="question2" type="radio" defaultValue="painting" />
+              <input checked={this.state.question2Selected === 'painting'} className="visually-hidden" name="question2" type="radio" defaultValue="painting" />
               <span>Рисунок</span>
             </label>
           </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import GameStats from './GameStats';
+import uniqid from 'uniqid';
 
 const getRightAnswer = (question) => {
   const RIGHT_ANSWER = {
@@ -11,9 +12,17 @@ const getRightAnswer = (question) => {
 
 const Option = ({ answer, rightAnswer, levelHandler }) => {
   const handler = () => (levelHandler(answer.type === rightAnswer));
+  const divStyle = {
+    border: '5px solid yellow'
+  };
+
   return (
-    <div className="game__option">
-      <img onClick={handler} src={answer.image.url} width={answer.image.width} height={answer.image.height} />
+    <div className="game__option" >
+      <img onClick={handler}
+        style={(answer.type === rightAnswer) ? divStyle : {}}
+        src={answer.image.url}
+        width={answer.image.width}
+        height={answer.image.height} />
     </div>
   );
 };
@@ -24,8 +33,8 @@ const OneOfThree = ({ data: { question, answers }, levelHandler }) => {
     <section className="game">
       <p className="game__task">{question}</p>
       <form className="game__content  game__content--triple" >
-        {answers.map((answer, index) => {
-          return (<Option key={index} answer={answer} rightAnswer={rightAnswer} levelHandler={levelHandler} />);
+        {answers.map((answer) => {
+          return (<Option key={uniqid()} answer={answer} rightAnswer={rightAnswer} levelHandler={levelHandler} />);
         })}
       </form>
       <GameStats />

@@ -3,64 +3,48 @@ import OneOfThree from './OneOfThree';
 import TwoOfTwo from './TwoOfTwo';
 import TinderLike from './TinderLike';
 import { connect } from 'react-redux';
-import { addAnswer } from '../../ac';
-import GameHeader from './GameHeader';
-import { Limit, AnswersType } from '../../conf';
-
+import { addAnswer, mistake, nextLevel, tick, resetTimer } from '../../ac';
+import { Limit } from '../../conf';
 
 class Game extends Component {
 
   state = {
-    level: 0,
-    time: Limit.TIME,
-    lives: Limit.LIVES
+    timer: null
   }
 
-  componentDidMount() {
-    this.startLevel();
-  }
-
-  startLevel() {
-    this.timerId = setInterval(() => {
-      if (this.state.time <= 0) {
-        this.saveAnswer(AnswersType.WRONG);
-        this.setState({
-          time: Limit.TIME
-        });
-        this.nextLevel();
-      } else {
-        this.setState({
-          time: this.state.time - 1
-        });
-      }
-    }, 1000);
-  }
-
-  getCurrentQuestion() {
-    const { questions } = this.props;
-    return questions[this.state.level];
-  }
-
-  nextLevel() {
-    const { lives, level } = this.state;
-    if (lives > 0 && level < Limit.LEVELS) {
-      this.setState({
-        level: this.state.level + 1
-      });
-    } else {
-      this.endGame();
+  componentWillMount() {
+    if (!this.props.questions) {
+      console.log('Error: questions not loaded!');
+      this.props.history.push('/');
     }
   }
 
-  endGame() {
-    const { history } = this.props;
-    clearTimeout(this.timerId);
-    history.push('./stats');
+  componentDidMount() {
+    let timer = setInterval(this.startTimer.bind(this), 1000);
+    this.setState({ timer });
   }
 
-  getTypeOfAnswer(rightAnswer) {
-    const { time } = this.state;
-    if (rightAnswer) {
+  componentWillUnmount() {
+    clearInterval(this.state.timer);
+  }
+
+  startTimer() {
+    const { game: { time }, tick } = this.props;
+    if (time <= 0) {
+      this.gameHandler(false);
+    } else {
+      tick();
+    }
+  }
+
+  getCurrentQuestion() {
+    const { questions, game: { level } } = this.props;
+    return questions[level];
+  }
+
+  getTypeOfAnswer(answer) {
+    const { time } = this.props.game;
+    if (answer) {
       if (time > Limit.TIME - Limit.FAST_TIME) {
         return 'fast';
       } else if (time < Limit.TIME - Limit.SLOW_TIME) {
@@ -72,57 +56,41 @@ class Game extends Component {
     return `wrong`;
   }
 
-  doMistake() {
-    if (this.state.lives > 0) {
-      this.setState({
-        lives: this.state.lives - 1
-      });
-    }
-  }
-
-  saveAnswer(type) {
-    const { addAnswer } = this.props;
-    addAnswer({
-      type: type,
-      time: this.state.time,
-      question: this.getCurrentQuestion()
-    });
-  }
-
-  levelHandler(answer) {
-    this.saveAnswer(this.getTypeOfAnswer(answer));
-
+  gameHandler(answer) {
+    const { mistake, addAnswer, resetTimer, questions, game: { lives, level }, nextLevel } = this.props;
+    addAnswer({ type: this.getTypeOfAnswer(answer) });
     if (!answer) {
-      this.doMistake();
+      mistake();
     }
+    resetTimer();
 
-    this.nextLevel();
+    if (lives > 0 && level < questions.length - 1) {
+      nextLevel();
+    } else {
+      this.endGame();
+    }
   }
 
-  getBody() {
-    switch (this.getCurrentQuestion().type) {
-      case 'one-of-three':
-        return <OneOfThree data={this.getCurrentQuestion()} levelHandler={this.levelHandler.bind(this)} />;
-      case 'two-of-two':
-        return <TwoOfTwo data={this.getCurrentQuestion()} levelHandler={this.levelHandler.bind(this)} />;
-      case 'tinder-like':
-        return <TinderLike data={this.getCurrentQuestion()} levelHandler={this.levelHandler.bind(this)} />;
-    };
+  endGame() {
+    const { history } = this.props;
+    history.push('./statssingle');
   }
 
   render() {
-    return (
-      <main className="central">
-        <div id="main" className="central__content">
-          <GameHeader time={this.state.time} lives={this.state.lives} />
-          {this.getBody()}
-        </div>
-      </main>)
+    switch (this.getCurrentQuestion().type) {
+      case 'one-of-three':
+        return <OneOfThree data={this.getCurrentQuestion()} levelHandler={this.gameHandler.bind(this)} />;
+      case 'two-of-two':
+        return <TwoOfTwo data={this.getCurrentQuestion()} levelHandler={this.gameHandler.bind(this)} />;
+      case 'tinder-like':
+        return <TinderLike data={this.getCurrentQuestion()} levelHandler={this.gameHandler.bind(this)} />;
+    };
   }
 
 };
 
 export default connect(state => ({
   questions: state.questions.data,
-  answers: state.answers
-}), { addAnswer })(Game);
+  answers: state.answers,
+  game: state.game
+}), { addAnswer, mistake, tick, nextLevel, resetTimer })(Game);

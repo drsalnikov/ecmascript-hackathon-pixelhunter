@@ -1,62 +1,123 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { postResults } from '../../ac';
+import { AnswersType, Scores } from '../../conf';
+import GameStats from '../Game/GameStats';
 
-const StatsSingle = () => {
+const SpeedBonus = ({ speedAnswers }) => {
+  if (!speedAnswers.length) {
+    return null;
+  }
+  const bonus = AnswersType.FAST - AnswersType.CORRECT;
   return (
-    <div>
-      <header className="header">
-        <button className="back">
-          <span className="visually-hidden">Вернуться к началу</span>
-          <svg className="icon" width={45} height={45} viewBox="0 0 45 45" fill="#000000">
-            <use xlinkHref="img/sprite.svg#arrow-left" />
-          </svg>
-          <svg className="icon" width={101} height={44} viewBox="0 0 101 44" fill="#000000">
-            <use xlinkHref="img/sprite.svg#logo-small" />
-          </svg>
-        </button>
-      </header>
-      <section className="result">
-        <h2 className="result__title result__title--single">950 очков. Неплохо!</h2>
-        <table className="result__table result__table--single">
-          <tbody><tr>
-            <td colSpan={2}>
-              <ul className="stats">
-                <li className="stats__result stats__result--wrong" />
-                <li className="stats__result stats__result--slow" />
-                <li className="stats__result stats__result--fast" />
-                <li className="stats__result stats__result--correct" />
-                <li className="stats__result stats__result--wrong" />
-                <li className="stats__result stats__result--unknown" />
-                <li className="stats__result stats__result--slow" />
-                <li className="stats__result stats__result--unknown" />
-                <li className="stats__result stats__result--fast" />
-                <li className="stats__result stats__result--unknown" />
-              </ul>
-            </td>
-            <td className="result__points">× 100</td>
-            <td className="result__total">900</td>
-          </tr>
-            <tr>
-              <td className="result__extra">Бонус за скорость:</td>
-              <td className="result__extra">1 <span className="stats__result stats__result--fast" /></td>
-              <td className="result__points">× 50</td>
-              <td className="result__total">50</td>
-            </tr>
-            <tr>
-              <td className="result__extra">Бонус за жизни:</td>
-              <td className="result__extra">2 <span className="stats__result stats__result--alive" /></td>
-              <td className="result__points">× 50</td>
-              <td className="result__total">100</td>
-            </tr>
-            <tr>
-              <td className="result__extra">Штраф за медлительность:</td>
-              <td className="result__extra">2 <span className="stats__result stats__result--slow" /></td>
-              <td className="result__points">× 50</td>
-              <td className="result__total">-100</td>
-            </tr>
-          </tbody></table>
-      </section>
-    </div>
+    <tr>
+      <td className="result__extra">Бонус за скорость:</td>
+      <td className="result__extra">{speedAnswers.length}<span className="stats__result stats__result--fast" /></td>
+      <td className="result__points">× {bonus}</td>
+      <td className="result__total">{speedAnswers.length * bonus}</td>
+    </tr>
   );
 };
 
-export default StatsSingle;
+const LiveBonus = ({ lives }) => {
+  if (lives < 1) {
+    return null;
+  }
+  return (
+    <tr>
+      <td className="result__extra">Бонус за жизни:</td>
+      <td className="result__extra">{lives}<span className="stats__result stats__result--alive" /></td>
+      <td className="result__points">× 50</td>
+      <td className="result__total">{lives * 50}</td>
+    </tr>
+  );
+};
+
+const SlownessBonus = ({ slownessAnswers }) => {
+  if (!slownessAnswers.length) {
+    return null;
+  }
+  const fine = AnswersType.SLOW - AnswersType.CORRECT;
+  return (
+    <tr>
+      <td className="result__extra">Штраф за медлительность:</td>
+      <td className="result__extra">{slownessAnswers.length} <span className="stats__result stats__result--slow" /></td>
+      <td className="result__points">× {fine}</td>
+      <td className="result__total">{slownessAnswers.length * fine}</td>
+    </tr>
+  );
+};
+
+const Total = ({ totalScores, countFast, countCorrect, countSlow }) => {
+  return (
+    <tr>
+      <td colSpan={2}>
+        <GameStats />
+      </td>
+      {countFast ? (<td className="result__points"> {countFast} × 150</td>) : null}
+      {countCorrect ? (<td className="result__points"> {countCorrect} × 100</td>) : null}
+      {countSlow ? (<td className="result__points"> {countSlow} × 50</td>) : null}
+      <td className="result__total">{totalScores}</td>
+    </tr>
+  );
+};
+
+class StatsSingle extends Component {
+
+  componentDidMount() {
+    const { postResults, posting, posted } = this.props;
+    if (!posted || !posting) {
+      postResults();
+    };
+  }
+
+  render() {
+    const { answers, lives } = this.props;
+    const correctAnswers = answers.filter(answer => answer === AnswersType.CORRECT);
+    const slownessAnswers = answers.filter(answer => answer === AnswersType.SLOW);
+    const speedAnswers = answers.filter(answer => answer === AnswersType.FAST);
+
+    const totalScores = answers.reduce((scores, answer) => {
+      switch (answer) {
+        case AnswersType.FAST:
+          return scores + Scores.FAST;
+        case AnswersType.CORRECT:
+          return scores + Scores.CORRECT;
+        case AnswersType.SLOW:
+          return scores + Scores.SLOW;
+        default:
+          return scores;
+      }
+    }, 0);
+
+    const result = (answers.length > 9)
+
+    return (
+      <section className="result">
+        <h2 className="result__title result__title--single">
+          {result ? 'WIN ' + totalScores : 'FAIL'}
+        </h2>
+        <table className="result__table result__table--single">
+          <tbody>
+            <Total
+              totalScores={totalScores}
+              countCorrect={correctAnswers.length}
+              countSlow={slownessAnswers.length}
+              countFast={speedAnswers.length}
+            />
+            <SpeedBonus speedAnswers={speedAnswers} />
+            <LiveBonus lives={lives} />
+            <SlownessBonus slownessAnswers={slownessAnswers} />
+          </tbody></table>
+      </section>
+    );
+  }
+};
+
+
+export default connect(state => ({
+  answers: state.answers,
+  lives: state.game.lives,
+  posting: state.stats.posting,
+  posted: state.stats.posted
+}), { postResults })(StatsSingle);

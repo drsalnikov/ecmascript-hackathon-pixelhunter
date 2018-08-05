@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ModalError = () => {
+const Error = () => {
   return (
     <section className="modal">
       <div className="modal__inner">
@@ -11,4 +11,4 @@ const ModalError = () => {
   );
 };
 
-export default ModalError;
+export default Error;

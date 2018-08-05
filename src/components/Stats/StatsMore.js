@@ -3,21 +3,6 @@ import React from 'react';
 const StatsMore = () => {
   return (
     <div>
-      <header className="header">
-        <button className="back">
-          <span className="visually-hidden">Вернуться к началу</span>
-          <svg className="icon" width={45} height={45} viewBox="0 0 45 45" fill="#000000">
-            <use xlinkHref="img/sprite.svg#arrow-left" />
-          </svg>
-          <svg className="icon" width={101} height={44} viewBox="0 0 101 44" fill="#000000">
-            <use xlinkHref="img/sprite.svg#logo-small" />
-          </svg>
-        </button>
-        <div className="header__tabs">
-          <button className="tab tab--active">Ты</button>
-          <button className="tab">Топ 50</button>
-        </div>
-      </header>
       <section className="result">
         <p className="result__text">У тебя
             <span id="result__score">28 650 очков</span> и

@@ -17,18 +17,20 @@ const Greeting = () => {
           <li>Помни, главное — смотреть очень внимательно.</li>
         </ul>
       </div>
-      <Link to="/rules">
-        <button className="greeting__continue" type="button">
+      <button className="greeting__continue" type="button">
+        <Link to="/rules">
           <span className="visually-hidden">Продолжить</span>
           <svg className="icon" width={64} height={64} viewBox="0 0 64 64" fill="#000000">
             <use xlinkHref="img/sprite.svg#arrow-right" />
           </svg>
-        </button>
-      </Link>
-      <button className="greeting__top top" type="button">
-        <img src="img/icon-top.svg" width={71} height={79} alt="Топ игроков" />
+        </Link>
       </button>
-    </section>
+      <button className="greeting__top top" type="button">
+        <Link to="/stats">
+          <img src="img/icon-top.svg" width={71} height={79} alt="Топ игроков" />
+        </Link>
+      </button>
+    </section >
   );
 };
 
